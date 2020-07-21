@@ -344,4 +344,6 @@ export interface MiscOptions {
    * Disable TypeScript Version Check.
    */
   disableTypeScriptVersionCheck?: boolean;
+
+  compilationModel?: 'aot'|'prelink';
 }
