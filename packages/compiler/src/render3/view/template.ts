@@ -169,7 +169,7 @@ export class TemplateDefinitionBuilder implements t.Visitor<void>, LocalResolver
       private contextName: string|null, private i18nContext: I18nContext|null,
       private templateIndex: number|null, private templateName: string|null,
       private directiveMatcher: SelectorMatcher|null, private directives: Set<o.Expression>,
-      private pipeTypeByName: Map<string, o.Expression>, private pipes: Set<o.Expression>,
+      private pipeTypeByName: Record<string, o.Expression>, private pipes: Set<o.Expression>,
       private _namespace: o.ExternalReference, relativeContextFilePath: string,
       private i18nUseExternalIds: boolean, private _constants: o.Expression[] = []) {
     this._bindingScope = parentBindingScope.nestedScope(level);
@@ -182,7 +182,7 @@ export class TemplateDefinitionBuilder implements t.Visitor<void>, LocalResolver
         constantPool, () => this.allocateDataSlot(),
         (numSlots: number) => this.allocatePureFunctionSlots(numSlots),
         (name, localName, slot, value: o.Expression) => {
-          const pipeType = pipeTypeByName.get(name);
+          const pipeType = pipeTypeByName[name];
           if (pipeType) {
             this.pipes.add(pipeType);
           }
